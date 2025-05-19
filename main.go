@@ -27,6 +27,32 @@ func stringToRune(s string) (rune, error) {
 	return r, nil
 }
 
+type CalculatorParams struct {
+	Operator     rune
+	FirstNumber  int
+	SecondNumber int
+}
+
+func calculator(params CalculatorParams) {
+	switch params.Operator {
+	case OpAdd:
+		fmt.Println("This is your result", params.FirstNumber+params.SecondNumber)
+	case OpSubtract:
+		fmt.Println("This is your result", params.FirstNumber-params.SecondNumber)
+	case OpMultiply:
+		fmt.Println("This is your result", params.FirstNumber*params.SecondNumber)
+	case OpDivide:
+		if params.SecondNumber == 0 {
+			fmt.Println("Cannot divide by zero")
+			return
+		}
+
+		fmt.Println("This is your result", params.FirstNumber/params.SecondNumber)
+	default:
+		fmt.Println("This is not supported - should never happen considering all the validation logic")
+	}
+}
+
 func main() {
 	signs := "/*+-"
 	signsSet := make(map[rune]struct{}, len(signs))
@@ -65,19 +91,9 @@ func main() {
 		return
 	}
 
-	switch signAsRune {
-	case OpAdd:
-		fmt.Println("This is your result", firstNumber+secondNumber)
-	case OpSubtract:
-		fmt.Println("This is your result", firstNumber-secondNumber)
-	case OpMultiply:
-		fmt.Println("This is your result", firstNumber*secondNumber)
-	case OpDivide:
-		if secondNumber == 0 {
-			fmt.Println("Cannot divide by zero")
-			return
-		}
-
-		fmt.Println("This is your result", firstNumber/secondNumber)
-	}
+	calculator(CalculatorParams{
+		Operator:     signAsRune,
+		FirstNumber:  firstNumber,
+		SecondNumber: secondNumber,
+	})
 }
