@@ -72,7 +72,8 @@ func main() {
 		fmt.Println("This is your result", firstNumber*secondNumber)
 	case '/':
 		if secondNumber == 0 {
-			panic("division by zero")
+			fmt.Println("Cannot divide by zero")
+			return
 		}
 
 		fmt.Println("This is your result", firstNumber/secondNumber)
