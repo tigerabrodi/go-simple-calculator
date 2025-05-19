@@ -32,20 +32,10 @@ func main() {
 
 	signArg := args[0]
 
-	isOperator := func(char rune) bool {
-		_, exists := signsSet[char]
-		return exists
-	}
-
 	signAsRune, err := stringToRune(signArg)
 
 	if err != nil {
 		fmt.Printf("what we got %c as sign was not what we expected, we expect to get one of these, only one of them %s", signAsRune, signs)
-		return
-	}
-
-	if !isOperator(signAsRune) {
-		fmt.Println("the letter we got is not one of the signs")
 		return
 	}
 
