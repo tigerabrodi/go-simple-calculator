@@ -65,16 +65,16 @@ func main() {
 
 	switch signAsRune {
 	case '+':
-		fmt.Println(firstNumber + secondNumber)
+		fmt.Println("This is your result", firstNumber+secondNumber)
 	case '-':
-		fmt.Println(firstNumber - secondNumber)
+		fmt.Println("This is your result", firstNumber-secondNumber)
 	case '*':
-		fmt.Println(firstNumber * secondNumber)
+		fmt.Println("This is your result", firstNumber*secondNumber)
 	case '/':
 		if secondNumber == 0 {
 			panic("division by zero")
 		}
 
-		fmt.Println(firstNumber / secondNumber)
+		fmt.Println("This is your result", firstNumber/secondNumber)
 	}
 }
