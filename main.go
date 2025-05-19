@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -53,6 +54,28 @@ func calculator(params CalculatorParams) {
 	}
 }
 
+type GetArgNumbersParams struct {
+	Operator rune
+	args     []string
+	signs    string
+}
+
+func getArgNumbers(params GetArgNumbersParams) (int, int, error) {
+	firstNumber, err := strconv.Atoi(params.args[1])
+
+	if err != nil {
+		return 0, 0, errors.New("Could not convert first number")
+	}
+
+	secondNumber, err := strconv.Atoi(params.args[2])
+
+	if err != nil {
+		return 0, 0, errors.New("Could not convert second number")
+	}
+
+	return firstNumber, secondNumber, nil
+}
+
 func main() {
 	signs := "/*+-"
 	signsSet := make(map[rune]struct{}, len(signs))
@@ -73,21 +96,20 @@ func main() {
 	signAsRune, err := stringToRune(signArg)
 
 	if err != nil {
-		fmt.Printf("what we got %c as sign was not what we expected, we expect to get one of these, only one of them %s", signAsRune, signs)
+		fmt.Println("Could not convert sign to rune, you did not give us the right thing")
 		return
 	}
 
-	firstNumber, err := strconv.Atoi(args[1])
+	firstNumber, secondNumber, err := getArgNumbers(GetArgNumbersParams{
+		args:     args,
+		signs:    signs,
+		Operator: signAsRune,
+	})
 
+	// TODO: Check what type of error? first number? second number?
+	// based on that we decide how to format the error here
 	if err != nil {
-		fmt.Printf("Could not convert %s to a number", args[1])
-		return
-	}
-
-	secondNumber, err := strconv.Atoi(args[2])
-
-	if err != nil {
-		fmt.Printf("We could not convert the second number to number, what we got was %v", secondNumber)
+		fmt.Println("")
 		return
 	}
 
