@@ -6,6 +6,13 @@ import (
 	"strconv"
 )
 
+const (
+	OpAdd      = '+'
+	OpSubtract = '-'
+	OpMultiply = '*'
+	OpDivide   = '/'
+)
+
 func stringToRune(s string) (rune, error) {
 	if len([]rune(s)) != 1 {
 		return 0, fmt.Errorf("input must be a single character, got %d characters", len([]rune(s)))
@@ -13,7 +20,7 @@ func stringToRune(s string) (rune, error) {
 
 	r := []rune(s)[0]
 
-	if r != '/' && r != '+' && r != '-' && r != '*' {
+	if r != OpDivide && r != OpAdd && r != OpSubtract && r != OpMultiply {
 		return 0, fmt.Errorf("The sign you specified was not one of the allowed character. We got %c", r)
 	}
 
@@ -59,13 +66,13 @@ func main() {
 	}
 
 	switch signAsRune {
-	case '+':
+	case OpAdd:
 		fmt.Println("This is your result", firstNumber+secondNumber)
-	case '-':
+	case OpSubtract:
 		fmt.Println("This is your result", firstNumber-secondNumber)
-	case '*':
+	case OpMultiply:
 		fmt.Println("This is your result", firstNumber*secondNumber)
-	case '/':
+	case OpDivide:
 		if secondNumber == 0 {
 			fmt.Println("Cannot divide by zero")
 			return
