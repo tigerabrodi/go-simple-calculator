@@ -1,11 +1,9 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"strconv"
-	"unicode"
 )
 
 func stringToRune(s string) (rune, error) {
@@ -13,10 +11,10 @@ func stringToRune(s string) (rune, error) {
 		return 0, fmt.Errorf("input must be a single character, got %d characters", len([]rune(s)))
 	}
 
-	r := rune(s[0])
+	r := []rune(s)[0]
 
-	if !unicode.IsLetter(r) {
-		return 0, errors.New("input must be a letter, but i got %c")
+	if r != '/' || r != '+' || r != '-' || r != '*' {
+		return 0, fmt.Errorf("The sign you specified was not one of the allowed character. We got %c", r)
 	}
 
 	return r, nil
@@ -54,7 +52,7 @@ func main() {
 	firstNumber, err := strconv.Atoi(args[1])
 
 	if err != nil {
-		fmt.Printf("We could not convert the first number to number, what we got was %v", firstNumber)
+		fmt.Printf("Could not convert %s to a number", args[1])
 		return
 	}
 
