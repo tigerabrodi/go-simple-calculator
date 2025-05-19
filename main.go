@@ -30,6 +30,11 @@ func main() {
 
 	args := os.Args[1:]
 
+	if len(args) < 3 {
+		fmt.Println("Not enough arguments specified")
+		return
+	}
+
 	signArg := args[0]
 
 	signAsRune, err := stringToRune(signArg)
