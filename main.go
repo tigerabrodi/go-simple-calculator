@@ -13,7 +13,7 @@ func stringToRune(s string) (rune, error) {
 
 	r := []rune(s)[0]
 
-	if r != '/' || r != '+' || r != '-' || r != '*' {
+	if r != '/' && r != '+' && r != '-' && r != '*' {
 		return 0, fmt.Errorf("The sign you specified was not one of the allowed character. We got %c", r)
 	}
 
