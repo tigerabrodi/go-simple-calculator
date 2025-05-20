@@ -104,8 +104,6 @@ func main() {
 		Operator: signAsRune,
 	})
 
-	// TODO: Check what type of error? first number? second number?
-	// based on that we decide how to format the error here
 	if err != nil {
 		if errors.Is(err, ErrFirstNumberConversion) {
 			fmt.Println(err)
