@@ -54,6 +54,9 @@ func calculator(params CalculatorParams) {
 	}
 }
 
+var ErrFirstNumberConversion = errors.New("could not convert first number")
+var ErrSecondNumberConversion = errors.New("could not convert second number")
+
 type GetArgNumbersParams struct {
 	Operator rune
 	args     []string
@@ -64,13 +67,13 @@ func getArgNumbers(params GetArgNumbersParams) (int, int, error) {
 	firstNumber, err := strconv.Atoi(params.args[1])
 
 	if err != nil {
-		return 0, 0, errors.New("Could not convert first number")
+		return 0, 0, ErrFirstNumberConversion
 	}
 
 	secondNumber, err := strconv.Atoi(params.args[2])
 
 	if err != nil {
-		return 0, 0, errors.New("Could not convert second number")
+		return 0, 0, ErrSecondNumberConversion
 	}
 
 	return firstNumber, secondNumber, nil
@@ -78,11 +81,6 @@ func getArgNumbers(params GetArgNumbersParams) (int, int, error) {
 
 func main() {
 	signs := "/*+-"
-	signsSet := make(map[rune]struct{}, len(signs))
-
-	for _, sign := range signs {
-		signsSet[sign] = struct{}{}
-	}
 
 	args := os.Args[1:]
 
@@ -109,7 +107,13 @@ func main() {
 	// TODO: Check what type of error? first number? second number?
 	// based on that we decide how to format the error here
 	if err != nil {
-		fmt.Println("")
+		if errors.Is(err, ErrFirstNumberConversion) {
+			fmt.Println(err)
+		}
+
+		if errors.Is(err, ErrSecondNumberConversion) {
+			fmt.Println((err))
+		}
 		return
 	}
 
