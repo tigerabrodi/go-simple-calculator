@@ -89,9 +89,9 @@ func main() {
 		return
 	}
 
-	signArg := args[0]
+	operator := args[0]
 
-	signAsRune, err := stringToRune(signArg)
+	operatorRune, err := stringToRune(operator)
 
 	if err != nil {
 		fmt.Println("Could not convert sign to rune, you did not give us the right thing")
@@ -101,7 +101,7 @@ func main() {
 	firstNumber, secondNumber, err := getArgNumbers(GetArgNumbersParams{
 		args:     args,
 		signs:    signs,
-		Operator: signAsRune,
+		Operator: operatorRune,
 	})
 
 	if err != nil {
@@ -116,7 +116,7 @@ func main() {
 	}
 
 	calculator(CalculatorParams{
-		Operator:     signAsRune,
+		Operator:     operatorRune,
 		FirstNumber:  firstNumber,
 		SecondNumber: secondNumber,
 	})
