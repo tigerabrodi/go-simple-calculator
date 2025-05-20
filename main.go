@@ -107,11 +107,10 @@ func main() {
 	if err != nil {
 		if errors.Is(err, ErrFirstNumberConversion) {
 			fmt.Println(err)
-		}
-
-		if errors.Is(err, ErrSecondNumberConversion) {
+		} else if errors.Is(err, ErrSecondNumberConversion) {
 			fmt.Println((err))
 		}
+
 		return
 	}
 
